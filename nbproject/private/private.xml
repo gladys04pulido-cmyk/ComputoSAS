@@ -2,6 +2,20 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ComputoSAS/src/modelo/Monitor.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ComputoSAS/src/modelo/DiscoDuro.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ComputoSAS/src/modelo/MemoriaRAM.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ComputoSAS/src/modelo/TarjetaGrafica.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ComputoSAS/src/modelo/Periferico.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ComputoSAS/src/modelo/Cliente.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ComputoSAS/src/modelo/Proveedor.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ComputoSAS/src/modelo/LineaDeVenta.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ComputoSAS/src/modelo/MetodoPago.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ComputoSAS/src/modelo/Efectivo.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ComputoSAS/src/modelo/TarjetaDebito.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ComputoSAS/src/modelo/TarjetaCredito.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ComputoSAS/src/modelo/Venta.java</file>
+        </group>
     </open-files>
 </project-private>

@@ -5,7 +5,7 @@
 
 package modelo;
 
-public class LineaVenta {
+public class LineaDeVenta {
 
     private int idLinea;
     private Producto producto;
@@ -13,7 +13,7 @@ public class LineaVenta {
     private double precioUnitario;
     private double subtotal;
 
-    public LineaVenta(int idLinea, Producto producto, int cantidad) {
+    public LineaDeVenta(int idLinea, Producto producto, int cantidad) {
         this.idLinea = idLinea;
         this.producto = producto;
         this.cantidad = cantidad;
@@ -45,4 +45,7 @@ public class LineaVenta {
 
     public double getSubtotal() { return subtotal; }
 }
+
+
+
 
