@@ -254,12 +254,21 @@ public class VentanaVentas extends javax.swing.JFrame {
     }
 
   try {
-    // Crear o buscar cliente
-    Cliente cliente = new Cliente(0, nombreCliente, "", "", "");
-    clienteDAO.agregar(cliente);
+    // Buscar cliente existente o crear uno nuevo
     List<Cliente> clientes = clienteDAO.obtenerTodos();
-    int idCliente = clientes.get(clientes.size() - 1).getIdCliente();
-
+    int idCliente = -1;
+    for (Cliente c : clientes) {
+      if (c.getNombre().equalsIgnoreCase(nombreCliente)) {
+        idCliente = c.getIdCliente();
+        break;
+    }
+  }
+    if (idCliente == -1) {
+       Cliente cliente = new Cliente(0, nombreCliente, "", "", "");
+       clienteDAO.agregar(cliente);
+       clientes = clienteDAO.obtenerTodos();
+       idCliente = clientes.get(clientes.size() - 1).getIdCliente();
+    }
     // Crear método de pago
     String metodoPago = cmbMetodoPago.getSelectedItem().toString();
     double total = 0;
