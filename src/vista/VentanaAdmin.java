@@ -204,21 +204,15 @@ public class VentanaAdmin extends javax.swing.JFrame {
 
         jLabel1.setText("Nombre :");
 
-        txtNombre.setText("jTextField1");
         txtNombre.addActionListener(this::txtNombreActionPerformed);
 
         jLabel2.setText("Dirección :");
 
-        txtDireccion.setText("jTextField2");
         txtDireccion.addActionListener(this::txtDireccionActionPerformed);
 
         jLabel3.setText("Teléfono :");
 
         jLabel4.setText("Correo :");
-
-        txtTelefono.setText("jTextField3");
-
-        txtCorreo.setText("jTextField4");
 
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(this::btnAgregarActionPerformed);
@@ -368,23 +362,19 @@ public class VentanaAdmin extends javax.swing.JFrame {
 
         jLabel9.setText("Nombre :");
 
-        txtNombreProd.setText("jTextField1");
-
         jLabel10.setText("Precio :");
 
-        txtPrecioProd.setText("jTextField2");
+        txtPrecioProd.addActionListener(this::txtPrecioProdActionPerformed);
 
         jLabel11.setText("Cantidad :");
 
-        txtCantidadProd.setText("jTextField3");
+        txtCantidadProd.addActionListener(this::txtCantidadProdActionPerformed);
 
         jLabel12.setText("Tipo :");
 
         cmbTipoProd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Teclado", "Monitor", "DiscoDuro", "MemoriaRAM", "TarjetaGrafica", "Periferico" }));
 
         jLabel13.setText("Proveedor ID:");
-
-        txtIdProveedorProd.setText("jTextField4");
 
         btnAgregarProd.setText("Agregar");
         btnAgregarProd.addActionListener(this::btnAgregarProdActionPerformed);
@@ -471,19 +461,11 @@ public class VentanaAdmin extends javax.swing.JFrame {
 
         jLabel5.setText("Razón Social :");
 
-        txtRazonSocial.setText("jTextField1");
-
         jLabel6.setText("Dirección :");
-
-        txtDireccionProv.setText("jTextField2");
 
         jLabel7.setText("Teléfono :");
 
-        txtTelefonoProv.setText("jTextField3");
-
         jLabel8.setText("Correo :");
-
-        txtCorreoProv.setText("jTextField4");
 
         btnAgregarProv.setText("Agregar");
         btnAgregarProv.addActionListener(this::btnAgregarProvActionPerformed);
@@ -841,6 +823,14 @@ public class VentanaAdmin extends javax.swing.JFrame {
     private void btnActualizarVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarVentasActionPerformed
     cargarVentas();
     }//GEN-LAST:event_btnActualizarVentasActionPerformed
+
+    private void txtPrecioProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioProdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrecioProdActionPerformed
+
+    private void txtCantidadProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadProdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadProdActionPerformed
 
     
 private void configurarTabla() {

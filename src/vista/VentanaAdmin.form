@@ -275,9 +275,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtNombre">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField1"/>
-              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNombreActionPerformed"/>
               </Events>
@@ -288,9 +285,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtDireccion">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField2"/>
-              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDireccionActionPerformed"/>
               </Events>
@@ -306,14 +300,8 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTelefono">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField3"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtCorreo">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField4"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnAgregar">
               <Properties>
@@ -552,9 +540,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtNombreProd">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField1"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
@@ -562,9 +547,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtPrecioProd">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField2"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPrecioProdActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
@@ -572,9 +557,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtCantidadProd">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField3"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCantidadProdActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel12">
               <Properties>
@@ -604,9 +589,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtIdProveedorProd">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField4"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnAgregarProd">
               <Properties>
@@ -738,9 +720,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtRazonSocial">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField1"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
@@ -748,9 +727,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtDireccionProv">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField2"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
@@ -758,9 +734,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTelefonoProv">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField3"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
@@ -768,9 +741,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtCorreoProv">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField4"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnAgregarProv">
               <Properties>

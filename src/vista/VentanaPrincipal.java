@@ -91,8 +91,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    javax.swing.JOptionPane.showMessageDialog(this, 
-    "Módulo de Ventas en construcción");
+    VentanaVentas ventana = new VentanaVentas();
+    ventana.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
