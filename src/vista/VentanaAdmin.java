@@ -13,6 +13,8 @@ import controlador.ProveedorDAO;
 import modelo.Proveedor;
 import controlador.ProductoDAO;
 import modelo.Producto;
+import modelo.Venta;
+import controlador.VentaDAO;
 
 /**
  *
@@ -25,6 +27,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
     private int idProveedorSeleccionado = -1;
     private ProductoDAO productoDAO = new ProductoDAO();
     private int idProductoSeleccionado = -1;
+    private VentaDAO ventaDAO = new VentaDAO();
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaAdmin.class.getName());
 
@@ -41,6 +44,10 @@ public class VentanaAdmin extends javax.swing.JFrame {
         configurarTablaProveedores();
         cargarProductos();
         configurarTablaProductos();
+        configurarTablaInventario();
+        cargarInventario();
+        configurarTablaVentas();
+        cargarVentas();
     }
 
     /**
@@ -54,6 +61,14 @@ public class VentanaAdmin extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tablaVentasPendientes = new javax.swing.JTable();
+        jLabel16 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tablaHistorialVentas = new javax.swing.JTable();
+        btnMarcarEntregada = new javax.swing.JButton();
+        btnActualizarVentas = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
@@ -69,6 +84,11 @@ public class VentanaAdmin extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaClientes = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaInventario = new javax.swing.JTable();
+        btnActualizarInventario = new javax.swing.JButton();
+        lblValorTotal = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         txtNombreProd = new javax.swing.JTextField();
@@ -101,15 +121,83 @@ public class VentanaAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel15.setText("Ventas Pendientes");
+
+        tablaVentasPendientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane5.setViewportView(tablaVentasPendientes);
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel16.setText("Historial de Ventas");
+
+        tablaHistorialVentas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane6.setViewportView(tablaHistorialVentas);
+
+        btnMarcarEntregada.setText("Marcar como Entregada");
+        btnMarcarEntregada.addActionListener(this::btnMarcarEntregadaActionPerformed);
+
+        btnActualizarVentas.setText("Actualizar");
+        btnActualizarVentas.addActionListener(this::btnActualizarVentasActionPerformed);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 731, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(136, 136, 136)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel16)
+                .addGap(127, 127, 127))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnMarcarEntregada)
+                .addGap(18, 18, 18)
+                .addComponent(btnActualizarVentas)
+                .addGap(284, 284, 284))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 378, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizarVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMarcarEntregada, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Gestión de Ventas", jPanel1);
@@ -187,7 +275,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
                         .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,20 +304,64 @@ public class VentanaAdmin extends javax.swing.JFrame {
                             .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Gestión de Clientes", jPanel2);
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel14.setText("Control de Inventario en Tiempo Real");
+
+        tablaInventario.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tablaInventario);
+
+        btnActualizarInventario.setText("Actualizar Inventario");
+        btnActualizarInventario.addActionListener(this::btnActualizarInventarioActionPerformed);
+
+        lblValorTotal.setText("Valor total: $0.0");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 731, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 174, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(134, 134, 134))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(btnActualizarInventario)
+                        .addGap(28, 28, 28)
+                        .addComponent(lblValorTotal)
+                        .addGap(230, 230, 230))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(236, 236, 236))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 378, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizarInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblValorTotal))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Control de Inventarios", jPanel3);
@@ -298,7 +430,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
                             .addComponent(txtNombreProd, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cmbTipoProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtIdProveedorProd, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
@@ -329,10 +461,10 @@ public class VentanaAdmin extends javax.swing.JFrame {
                             .addComponent(jLabel13)
                             .addComponent(txtIdProveedorProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAgregarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEliminarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(56, Short.MAX_VALUE))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEliminarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAgregarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Catálogo de Productos", jPanel5);
@@ -432,7 +564,7 @@ public class VentanaAdmin extends javax.swing.JFrame {
                             .addComponent(btnAgregarProv, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnActualizarProv, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminarProv, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Gestión de Proveedores", jPanel4);
@@ -443,8 +575,8 @@ public class VentanaAdmin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addGap(142, 142, 142))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -686,6 +818,30 @@ public class VentanaAdmin extends javax.swing.JFrame {
      }
     }//GEN-LAST:event_btnEliminarProdActionPerformed
 
+    private void btnActualizarInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarInventarioActionPerformed
+    cargarInventario();
+    }//GEN-LAST:event_btnActualizarInventarioActionPerformed
+
+    private void btnMarcarEntregadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMarcarEntregadaActionPerformed
+    int fila = tablaVentasPendientes.getSelectedRow();
+    if (fila == -1) {
+      javax.swing.JOptionPane.showMessageDialog(this,
+        "Seleccione una venta pendiente", "Error",
+        javax.swing.JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+  String folio = tablaVentasPendientes.getValueAt(fila, 0).toString();
+    if (ventaDAO.actualizarEstatus(folio, "ENTREGADA")) {
+      javax.swing.JOptionPane.showMessageDialog(this,
+        "Venta marcada como entregada");
+      cargarVentas();
+     }
+    }//GEN-LAST:event_btnMarcarEntregadaActionPerformed
+
+    private void btnActualizarVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarVentasActionPerformed
+    cargarVentas();
+    }//GEN-LAST:event_btnActualizarVentasActionPerformed
+
     
 private void configurarTabla() {
     DefaultTableModel model = new DefaultTableModel();
@@ -817,6 +973,83 @@ private void limpiarCamposProd() {
     txtIdProveedorProd.setText("");
     idProductoSeleccionado = -1;
 }
+
+private void configurarTablaInventario() {
+    DefaultTableModel model = new DefaultTableModel();
+    model.addColumn("ID");
+    model.addColumn("Nombre");
+    model.addColumn("Tipo");
+    model.addColumn("Cantidad Actual");
+    model.addColumn("Cantidad Mínima");
+    model.addColumn("Precio");
+    model.addColumn("Estado");
+    tablaInventario.setModel(model);
+}
+
+private void cargarInventario() {
+    DefaultTableModel model = (DefaultTableModel) tablaInventario.getModel();
+    model.setRowCount(0);
+    List<Producto> lista = productoDAO.obtenerTodos();
+    double valorTotal = 0;
+    for (Producto p : lista) {
+        String estado = p.getCantidadActual() <= p.getCantidadMinimaPermitida() 
+            ? "⚠ STOCK BAJO" : "OK";
+        model.addRow(new Object[]{
+            p.getIdProducto(),
+            p.getNombre(),
+            p.getTipoProducto(),
+            p.getCantidadActual(),
+            p.getCantidadMinimaPermitida(),
+            p.getPrecioVenta(),
+            estado
+        });
+        valorTotal += p.getPrecioVenta() * p.getCantidadActual();
+    }
+    lblValorTotal.setText("Valor total: $" + String.format("%.2f", valorTotal));
+}
+
+private void configurarTablaVentas() {
+    DefaultTableModel modelPendientes = new DefaultTableModel();
+    modelPendientes.addColumn("Folio");
+    modelPendientes.addColumn("Fecha");
+    modelPendientes.addColumn("Cliente ID");
+    modelPendientes.addColumn("Total");
+    modelPendientes.addColumn("Estado");
+    tablaVentasPendientes.setModel(modelPendientes);
+
+    DefaultTableModel modelHistorial = new DefaultTableModel();
+    modelHistorial.addColumn("Folio");
+    modelHistorial.addColumn("Fecha");
+    modelHistorial.addColumn("Cliente ID");
+    modelHistorial.addColumn("Total");
+    modelHistorial.addColumn("Estado");
+    tablaHistorialVentas.setModel(modelHistorial);
+}
+
+private void cargarVentas() {
+    DefaultTableModel modelPendientes = 
+        (DefaultTableModel) tablaVentasPendientes.getModel();
+    DefaultTableModel modelHistorial = 
+        (DefaultTableModel) tablaHistorialVentas.getModel();
+    modelPendientes.setRowCount(0);
+    modelHistorial.setRowCount(0);
+
+    List<Venta> lista = ventaDAO.obtenerTodas();
+    for (Venta v : lista) {
+        Object[] fila = new Object[]{
+            v.getFolio(),
+            v.getFechaVenta(),
+            v.getIdCliente(),
+            v.getTotalConIVA(),
+            v.getEstatusVenta()
+        };
+        if (v.getEstatusVenta().equals("PENDIENTE")) {
+            modelPendientes.addRow(fila);
+        } else {
+            modelHistorial.addRow(fila);
+        }
+    }
+}
     
     /**
      * @param args the command line arguments
@@ -845,19 +1078,25 @@ private void limpiarCamposProd() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnActualizarInventario;
     private javax.swing.JButton btnActualizarProv;
+    private javax.swing.JButton btnActualizarVentas;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAgregarProd;
     private javax.swing.JButton btnAgregarProv;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminarProd;
     private javax.swing.JButton btnEliminarProv;
+    private javax.swing.JButton btnMarcarEntregada;
     private javax.swing.JComboBox<String> cmbTipoProd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -872,12 +1111,19 @@ private void limpiarCamposProd() {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblValorTotal;
     private javax.swing.JTable tablaClientes;
+    private javax.swing.JTable tablaHistorialVentas;
+    private javax.swing.JTable tablaInventario;
     private javax.swing.JTable tablaProductos;
     private javax.swing.JTable tablaProveedores;
+    private javax.swing.JTable tablaVentasPendientes;
     private javax.swing.JTextField txtCantidadProd;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtCorreoProv;
