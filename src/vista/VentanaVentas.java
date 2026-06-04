@@ -170,19 +170,16 @@ public class VentanaVentas extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(lblTotal)
                     .addComponent(btnAgregarCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnProcesarVenta)
                     .addComponent(cmbMetodoPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -308,18 +305,30 @@ public class VentanaVentas extends javax.swing.JFrame {
             venta.agregarLinea(linea);
         }
 
+       
         // Verificar stock
-        boolean hayPendientes = false;
-        for (LineaDeVenta linea : carrito) {
-            if (linea.getProducto().isEsBajoPedido()) {
-                hayPendientes = true;
-                break;
-            }
-        }
+      boolean hayPendientes = false;
+      int diasEstimados = 0;
+      for (LineaDeVenta linea : carrito) {
+      Producto prod = productoDAO.buscarPorId(linea.getProducto().getIdProducto());
+      if (prod.getCantidadActual() < linea.getCantidad()) {
+        hayPendientes = true;
+        diasEstimados = 5 + (int)(Math.random() * 6); // entre 5 y 10 dias
+        break;
+       }
+    }
+     venta.setDiasEstimadosImportacion(diasEstimados);
 
         venta.setEstatusVenta(hayPendientes ? "PENDIENTE" : "ENTREGADA");
         int idVenta = ventaDAO.agregar(venta, idMetodoPago);
         ventaDAO.agregarLineas(idVenta, carrito);
+        
+        // Actualizar stock
+        for (LineaDeVenta linea : carrito) {
+        Producto prod = productoDAO.buscarPorId(linea.getProducto().getIdProducto());
+        int nuevaCantidad = prod.getCantidadActual() - linea.getCantidad();
+        productoDAO.actualizarStock(linea.getProducto().getIdProducto(), nuevaCantidad);
+    }
 
         // Mostrar documentos
         String documentos = venta.generarFactura() + "\n\n" + 
@@ -458,3 +467,4 @@ private void actualizarTotal() {
     private javax.swing.JTextField txtNombreCliente;
     // End of variables declaration//GEN-END:variables
 }
+

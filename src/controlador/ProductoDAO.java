@@ -223,4 +223,20 @@ public class ProductoDAO {
                 return null;
         }
     }
+    
+    public boolean actualizarStock(int idProducto, int nuevaCantidad) {
+        String sql = "UPDATE Producto SET cantidadActual=? WHERE idProducto=?";
+        try (Connection conn = Conexion.getConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, nuevaCantidad);
+            ps.setInt(2, idProducto);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar stock: " + e.getMessage());
+            return false;
+        }
+    }
+      
+    
 }
